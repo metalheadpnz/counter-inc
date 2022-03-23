@@ -3,12 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ThemeProvider} from "@mui/material";
+import {createTheme} from "@mui/material/styles";
+import {deepOrange, deepPurple} from "@mui/material/colors";
+
+const theme = createTheme({
+    palette: {
+        primary: deepOrange,
+        secondary: deepPurple,
+    }
+})
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <ThemeProvider theme={theme}>
+            <App/>
+        </ThemeProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
