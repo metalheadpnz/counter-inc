@@ -16,37 +16,36 @@ const bull = (
     </Box>
 );
 
-type propsType = {
-    counter: number
-    increment: () => void
-    restCounterToDefaultValue: () => void
-    stopCount: boolean
-}
+type propsType = any
+// type propsType = {
+//     counter: number
+//     increment: () => void
+//     restCounterToDefaultValue: () => void
+// }
 
 export default function BasicCard(
     {
         counter,
         increment,
-        restCounterToDefaultValue,
-        stopCount
+        restCounterToDefaultValue
     }: propsType) {
 
     const incrementBtnHandler = () => {
         increment()
     }
-
+    // sx={{minWidth: 275}}
+    //sx={{ display: 'inline-block', m: 1}}
     return (
-        <Card sx={{display: 'inline-block', mr: 2}}>
+        <Card sx={{ display: 'inline-block', mr: 1}}>
             <CardContent>
-                <Typography variant="h2" component="div" className={stopCount ? 'redText' : ''}>
-                    {counter}
+                <Typography variant="h2" component="div">
+                    300
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button variant="contained" onClick={incrementBtnHandler} disabled={stopCount}>Increment</Button>
+                <Button variant="contained" onClick={incrementBtnHandler}>Increment</Button>
                 <Button variant="contained" onClick={restCounterToDefaultValue}>Reset</Button>
             </CardActions>
         </Card>
-    )
-        ;
+    );
 }

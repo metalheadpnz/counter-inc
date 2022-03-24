@@ -10,7 +10,7 @@ function App() {
     return (
         <div>
             <AppBar/>
-            <Container maxWidth="sm" sx={{marginTop: '1rem'}}>
+            <Container maxWidth="xl" sx={{marginTop: '1rem'}}>
                 <CounterWrapper/>
             </Container>
         </div>
