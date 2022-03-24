@@ -5,7 +5,9 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
+import {TextField} from "@mui/material";
+import {settingType} from "./CounterWrapper";
 
 const bull = (
     <Box
@@ -16,35 +18,67 @@ const bull = (
     </Box>
 );
 
-type propsType = any
-// type propsType = {
-//     counter: number
-//     increment: () => void
-//     restCounterToDefaultValue: () => void
-// }
+type propsType = {
+    settings: settingType,
+    setSettings: (settings: settingType) => void
+}
 
-export default function BasicCard(
-    {
-        counter,
-        increment,
-        restCounterToDefaultValue
-    }: propsType) {
+export default function BasicCard({settings, setSettings}: propsType) {
+    const [startValue, setStartValue] = useState(settings.DEFAULT_VALUE)
+    const [maxValue, setMaxValue] = useState(settings.MAX_VALUE)
 
-    const incrementBtnHandler = () => {
-        increment()
+    const onStartValueFieldChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setStartValue(+e.currentTarget.value)
     }
-    // sx={{minWidth: 275}}
-    //sx={{ display: 'inline-block', m: 1}}
+
+    const onMaxValueFieldChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setMaxValue(+e.currentTarget.value)
+    }
+
+    const setBtnHandler = () => {
+        if (startValue < maxValue) {
+            setSettings({
+                DEFAULT_VALUE: startValue,
+                MAX_VALUE: maxValue
+            })
+        } else {
+            console.log('error')
+        }
+    }
+
     return (
-        <Card sx={{ display: 'inline-block', mr: 1}}>
+        <Card sx={{display: 'inline-block', mr: 1}}>
             <CardContent>
-                <Typography variant="h2" component="div">
-                    300
-                </Typography>
+                <div>
+                    <TextField
+                        type="number"
+                        id="standard-basic"
+                        label="Start Value"
+                        variant="standard"
+                        value={startValue.toString()}
+                        onChange={onStartValueFieldChanged}/>
+                </div>
+                <div>
+                    <TextField
+                        type="number"
+                        id="standard-basic"
+                        label="Max Value"
+                        variant="standard"
+                        value={maxValue.toString()}
+                        onChange={onMaxValueFieldChanged}/>
+                </div>
+
+                {/*<Typography>*/}
+                {/*    <TextField id="standard-basic" label="Max Value" variant="standard" value={0}/>*/}
+                {/*</Typography>*/}
+
+                {/*<Typography variant="h2" component="div">*/}
+                {/*    300*/}
+                {/*</Typography>*/}
+
             </CardContent>
             <CardActions>
-                <Button variant="contained" onClick={incrementBtnHandler}>Increment</Button>
-                <Button variant="contained" onClick={restCounterToDefaultValue}>Reset</Button>
+                <Button variant="contained" onClick={setBtnHandler}>Set</Button>
             </CardActions>
         </Card>
     );
